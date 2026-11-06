@@ -31,6 +31,18 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="calificaciones.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="calificaciones.h" />
+		<Unit filename="canciones.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="canciones.h" />
+		<Unit filename="fechas.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="fechas.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
