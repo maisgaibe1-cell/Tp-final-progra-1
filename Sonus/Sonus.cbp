@@ -31,6 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="acceso.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="acceso.h" />
 		<Unit filename="album.c">
 			<Option compilerVar="CC" />
 		</Unit>

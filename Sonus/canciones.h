@@ -10,6 +10,5 @@ typedef struct stCancion {
     float calificacionPromedio; // Se calcula dinámicamente o se actualiza
 } Cancion;
 
-
 #endif // CANCIONES_H_INCLUDED
 
