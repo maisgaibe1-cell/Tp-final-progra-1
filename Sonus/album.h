@@ -15,7 +15,7 @@ Album cargarAlbum(Artista artistaLogueado);
 int generarIdAlbum(const char nombreArchivo[]);
 int guardarAlbum(const char nombreArchivo[], Album albumNuevo);
 int modificarAlbum(const char nombreArchivo[],Artista artistaLogueado);
-int buscarPorId(const char nombreArchivo[],Artista artistaLogueado,char idAlbum[], Album *resultado);
+int buscarAlbumPorId(const char nombreArchivo[],Artista artistaLogueado,char idAlbum[], Album *resultado);
 void mostrarArchivoAlbumes(const char nombreArchivo[]);
 void mostrarAlbum(Album a);
 #endif // ALBUM_H_INCLUDED

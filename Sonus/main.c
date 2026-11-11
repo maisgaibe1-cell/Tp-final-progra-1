@@ -24,6 +24,11 @@ printf("\n--------------\n");
         printf("\nEntraste como USUARIO. ID: %s\n", idLogueado);
     } else if (rol == ROL_ARTISTA) {
         printf("\nEntraste como ARTISTA. ID: %s\n", idLogueado);
+        Artista artistaLogueado;
+        existeArtista(idLogueado,&artistaLogueado);
+
+        menuArtista(artistaLogueado);
+
     } else {
         printf("\nNo se pudo iniciar sesion.\n");
     }

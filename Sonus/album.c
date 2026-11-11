@@ -102,7 +102,7 @@ int modificarAlbum(const char nombreArchivo[],Artista artistaLogueado)
     Album nuevoAlbum;
     Album a;
 
-    if(buscarPorId(nombreArchivo,artistaLogueado,idAlbum,&nuevoAlbum)==1)
+    if(buscarAlbumPorId(nombreArchivo,artistaLogueado,idAlbum,&nuevoAlbum)==1)
     {
         printf("Titulo\n");
         fgets(nuevoAlbum.titulo,sizeof(nuevoAlbum.titulo),stdin);
@@ -146,7 +146,7 @@ int modificarAlbum(const char nombreArchivo[],Artista artistaLogueado)
         return 0;
     }
 }
-int buscarPorId(const char nombreArchivo[],Artista artistaLogueado,char idAlbum[], Album *resultado)
+int buscarAlbumPorId(const char nombreArchivo[],Artista artistaLogueado,char idAlbum[], Album *resultado)
 {
     FILE* archivo= fopen(nombreArchivo,"rb");
 
