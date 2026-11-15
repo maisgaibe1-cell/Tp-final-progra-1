@@ -1,7 +1,7 @@
 #ifndef ALBUM_H_INCLUDED
 #define ALBUM_H_INCLUDED
 #include "artista.h"
-
+#define ARCHIVO_ALBUMES  "albumes.bin"
 typedef struct stAlbum
 {
     char idAlbum[10];

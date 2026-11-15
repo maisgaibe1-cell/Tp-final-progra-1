@@ -2,7 +2,7 @@
 #define CANCIONES_H_INCLUDED
 #include "artista.h"
 #include "album.h"
-
+#define ARCHIVO_CANCIONES "canciones.bin"
 typedef struct stCancion {
     char idCancion[10];
     char titulo[100];

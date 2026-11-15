@@ -1,6 +1,6 @@
 #ifndef ARTISTA_H_INCLUDED
 #define ARTISTA_H_INCLUDED
-
+#define ARCHIVO_ARTISTAS  "artistas.bin"
 typedef struct stArtista
 {
     char idArtista[10];

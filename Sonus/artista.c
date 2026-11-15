@@ -4,6 +4,8 @@
 #include <string.h>
 #include "album.h"
 #include "canciones.h"
+
+
 int existeArtista(char id[], Artista* artistaBuscado)
 {
     FILE *buffer = fopen("artistas.dat", "rb") ;
@@ -107,4 +109,26 @@ void menuArtista(Artista artistaLogueado)
         }
     }
     while(opcion != 0);
+}
+
+
+int buscarArtistaPorNombre(char *nombre, Artista *encontrado)
+{
+    Artista a;
+    FILE *archivo =fopen(ARCHIVO_ARTISTAS, "rb");
+
+    if(archivo == NULL)
+        return 0;
+
+    while(fread(&a, sizeof(Artista),1,archivo) == 1)
+    {
+        if(strcmp(a.nombre , nombre)== 0)
+        {
+            *encontrado = a;
+            fclose(archivo);
+            return 1;
+        }
+    }
+fclose(archivo);
+return 0;
 }
