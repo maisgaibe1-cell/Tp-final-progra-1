@@ -47,7 +47,7 @@ void listarAlbumesArtista(const char *idArtista)
             }
         }
         fclose(archivo);
-    }
+
     if (!hay)
     {
         printf("\n  Este artista no tiene albumes.\n");
@@ -62,6 +62,7 @@ void listarAlbumesArtista(const char *idArtista)
 
       printf("\nNombre del artista: ");
       fgets(nombre,sizeof(nombre), stdin);
+      nombre[strcspn(nombre, "\n")] = '\0';
 
       if(!buscarArtistaPorNombre(nombre, &a))
       {
@@ -69,7 +70,7 @@ void listarAlbumesArtista(const char *idArtista)
           return;
       }
      printf("\n--- %s (%s) ---\n", artista.nombre, artista.generoPrincipal);
-     listarAlbumesDeArtista(artista.idArtista);
+     listarAlbumesArtista(artista.idArtista);
   }
 
   static int buscarAlbumPorTitulo(const char *titulo, Album *encontrado)

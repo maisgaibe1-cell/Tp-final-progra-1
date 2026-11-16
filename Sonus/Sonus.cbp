@@ -39,6 +39,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="album.h" />
+		<Unit filename="archivos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="archivos.h" />
 		<Unit filename="artista.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -62,6 +66,10 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="reportes.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="reportes.h" />
 		<Unit filename="usuario.c">
 			<Option compilerVar="CC" />
 		</Unit>

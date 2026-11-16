@@ -140,3 +140,22 @@ void verMisCalificaciones(const char *idUsuario)
         printf("  Todavia no calificaste ninguna cancion.\n");
     }
 }
+
+int yaCalifico(const char *idUsuario, const char *idCancion)
+{
+    Calificacion c;
+    FILE *archivo = fopen(ARCHIVO_CALIFICACIONES, "rb");
+
+    if (archivo == NULL) {
+        return 0;
+    }
+    while (fread(&c, sizeof(Calificacion), 1, archivo) == 1) {
+        if (strcmp(c.idUsuario, idUsuario) == 0 && strcmp(c.idCancion, idCancion) == 0) {
+            fclose(archivo);
+            return 1;
+        }
+    }
+    fclose(archivo);
+
+    return 0;
+}
