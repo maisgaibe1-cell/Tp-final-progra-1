@@ -11,6 +11,6 @@ typedef struct stArtista
 
 
 int existeArtista(char id[], Artista* artistaBuscado);
-int registrarArtistas(void);
+int registrarArtistas(char idNuevo[]);
 void menuArtista(Artista artistaLogueado);
 #endif // ARTISTA_H_INCLUDED

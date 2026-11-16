@@ -1,11 +1,20 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "catalogo.h"
-#include "artista.h"
+#include "album.h"
 #include "canciones.h"
+#include "artista.h"
 
 
+static int duracionTotalRec(const Cancion canciones[], int cantidad)
+{
+    if (cantidad == 0) {
+        return 0;
+    }
 
+    return canciones[cantidad - 1].duracionSegundos + duracionTotalRec(canciones, cantidad - 1);
+}
 
 void listarCancionesDelAlbum(const char *idAlbum)
 {
@@ -58,14 +67,14 @@ void listarAlbumesArtista(const char *idArtista)
   void verCatalogoArtista(void)
   {
       char nombre[50];
-      Artista a;
+      Artista artista;
 
       printf("\nNombre del artista: ");
       fgets(nombre,sizeof(nombre), stdin);
       nombre[strcspn(nombre, "\n")] = '\0';
 
-      if(!buscarArtistaPorNombre(nombre, &a))
-      {
+      if(!buscarArtistaPorNombre(nombre, &artista))
+     {
           printf("\nNo se encontro el artista.\n");
           return;
       }
@@ -107,7 +116,7 @@ void verCancionesPorAlbum(void)
         return;
     }
     printf("\n--- %s - %s (%d) ---\n", album.titulo, album.artista.nombre, album.anioLanzamiento);
-    listarCancionesDeAlbum(album.idAlbum);
+    listarCancionesDelAlbum(album.idAlbum);
 }
 
 int buscarCancionPorTitulo(const char *titulo, Cancion *encontrada)

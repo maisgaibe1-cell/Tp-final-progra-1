@@ -9,7 +9,7 @@ typedef struct stUsuario {
     char nickname[30];
 } Usuario;
 
-int registrarUsuario(void);
+int registrarUsuario(char idNuevo[]);
 int existeUsuario(char id[], Usuario *usuarioBuscado);
 
 

@@ -30,7 +30,7 @@ int existeArtista(char id[], Artista* artistaBuscado)
         return 0;
 }
 
-int registrarArtistas()
+int registrarArtistas(char idNuevo[])
 {
     FILE *buffer;
     Artista a;
@@ -49,8 +49,11 @@ int registrarArtistas()
 
    printf("\nNombre:");
    fgets(a.nombre, sizeof(a.nombre), stdin);
+   a.nombre[strcspn(a.nombre, "\n")] = '\0';
+
    printf("\nIngresa contrasenia:");
    scanf("%19s", a.contrasenia);
+
    printf("\nGenero Princial: ");
    scanf("%29s", a.generoPrincipal);
 
@@ -60,76 +63,11 @@ int registrarArtistas()
     return 0;
 
  fwrite(&a, sizeof(Artista), 1, buffer);
-
-
-
    fclose(buffer);
 
+ printf("\nArtista registrado.\n");
     return 1;
    }
-}
-
-void menuArtista(Artista artistaLogueado)
-{
-    int opcion;
-    do
-    {
-        printf("\n--- MENU ARTISTA ---\n");
-        printf("1. Agregar album\n");
-        printf("2. Modificar album\n");
-        printf("3. Agregar cancion\n");
-        printf("4. Modificar cancion\n");
-        printf("5. Mostrar mis canciones\n");
-        printf("6. Mostrar Top 10 mejores canciones\n");
-        printf("7. Mostrar albumes lanzados recientemente\n");
-        printf("8. Mostrar artista que recibio mas calificaciones\n");
-        printf("9. Mostrar el usuario que dejo mas calificaciones\n");
-        printf("0. Salir\n");
-        scanf("%d", &opcion);
-        getchar();
-
-        switch(opcion)
-        {
-        case 1:
-            cargarAlbum(artistaLogueado);
-            break;
-        case 2:
-            modificarAlbum("albumes.dat",artistaLogueado);
-            break;
-        case 3:
-            Cancion nueva = cargarCancion(artistaLogueado);
-            if(guardarCancion("canciones.dat", nueva) == 1)
-            {
-                printf("Cancion guardada\n");
-            }
-            break;
-        case 4:
-            modificarCancion("canciones.dat", artistaLogueado);
-            break;
-        case 5:
-            mostrarArchivoCanciones("canciones.dat");
-            break;
-         case 6:
-            reporteTop10Canciones();
-            break;
-        case 7:
-            reporteAlbumesRecientes();
-            break;
-       /*
-        case 8:
-
-            break;
-        case 9:
-
-            break;
-        */
-        default:
-
-            break;
-        }
-
-    }
-    while(opcion != 0);
 }
 
 

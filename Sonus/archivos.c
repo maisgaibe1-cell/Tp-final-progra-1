@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 void *cargarArchivo(const char *ruta, size_t tamElemento, int *cantidad)
 {
     void *arreglo = NULL;

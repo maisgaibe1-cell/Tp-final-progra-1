@@ -6,7 +6,7 @@
 
 int existeUsuario(char id[], Usuario *usuarioBuscado)
 {
-    FILE *buffer = fopen("usuarios.dat", "rb") ;
+    FILE *buffer = fopen("usuarios.bin", "rb") ;
 
     if(buffer == NULL)
     return 0;
@@ -28,15 +28,16 @@ int existeUsuario(char id[], Usuario *usuarioBuscado)
         return 0;
 }
 
-int registrarUsuario()
+int registrarUsuario(char idNuevo[])
 {
     FILE *buffer;
     Usuario a;
+    Usuario aux;
 
    printf("\nIngresa ID:");
    scanf("%9s", a.idUsuario);
 
-   if(existeUsuario(a.idUsuario)==1)
+   if(existeUsuario(a.idUsuario, &aux)==1)
    {
       printf("\nYa existe este usuario.");
    }
@@ -65,56 +66,3 @@ int registrarUsuario()
   }
 }
 
-void menuUsuario(Usuario usuarioLogueado){
-
-    int opcion;
-
-    do{
-        printf("\n---MENU USUARIO---\n");
-        printf("1. Ver catalogo de un artista\n");
-        printf("2. Ver un album\n");
-        printf("3. Ver detalle de una cancion\n");
-        printf("4. Calificar cancion\n");
-        printf("5. Ver mis calificaciones\n");
-        printf("6. Mostrar Top 10 mejores canciones\n");
-        printf("7. Mostrar albumes lanzados recientemente\n");
-        printf("8. Mostrar artista que recibio mas calificaciones\n");
-        printf("9. Mostrar el usuario que dejo mas calificaciones\n");
-        printf("0. Salir\n");
-        scanf("%d", &opcion);
-        getchar();
-
-        switch(opcion)
-        {
-        case 1:
-            verCatalogoArtista();
-            break;
-            case 2:
-            verCancionesPorAlbum();
-            break;
-            case 3:
-            verInfoCancion();
-            break;
-            case 4:
-            calificarCancion(usuarioLogueado.idUsuario);
-            break;
-            case 5:
-            verMisCalificaciones(usuarioLogueado.idUsuario);
-            break;
-            case 6:
-            reporteTop10Canciones();
-            break;
-            case 7:
-            reporteAlbumesRecientes();
-            break;
-           /* case 8:
-
-            break;
-            case 9:
-
-            break;
-            */
-        }
-    }
-    while(opcion != 0);
-}

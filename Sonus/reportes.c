@@ -1,7 +1,12 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "canciones.h"
 #include "archivos.h"
 #include "album.h"
 #include "archivos.h"
+
 
 
 void ordenarPorPromedioDesc(Cancion *canciones, int n)
@@ -25,7 +30,9 @@ void reporteTop10Canciones(void)
     Cancion *canciones = cargarArchivo("canciones.dat", sizeof(Cancion), &cant);
 
     if (canciones == NULL)
-        printf("No hay canciones cargadas.\n");
+       {
+          printf("No hay canciones cargadas.\n");
+       }
     else
     {
         ordenarPorPromedioDesc(canciones, cant);
@@ -94,4 +101,120 @@ void reporteAlbumesRecientes(void)
         }
         free(albumes);
     }
+}
+
+
+static int contarCalificacionesDeCancion(const char *idCancion)
+{
+    Calificacion cal;
+    int cantidad = 0;
+    FILE *archivo = fopen(ARCHIVO_CALIFICACIONES, "rb");
+
+    if (archivo == NULL) {
+        return 0;
+    }
+    while (fread(&cal, sizeof(Calificacion), 1, archivo) == 1) {
+        if (strcmp(cal.idCancion, idCancion) == 0) {
+            cantidad++;
+        }
+    }
+    fclose(archivo);
+
+    return cantidad;
+}
+
+static int contarCalificacionesDeArtista(const char *idArtista)
+{
+    Cancion c;
+    int total = 0;
+    FILE *archivo = fopen(ARCHIVO_CANCIONES, "rb");
+
+    if (archivo == NULL) {
+        return 0;
+    }
+    while (fread(&c, sizeof(Cancion), 1, archivo) == 1) {
+        if (strcmp(c.idArtista, idArtista) == 0) {
+            total += contarCalificacionesDeCancion(c.idCancion);
+        }
+    }
+    fclose(archivo);
+
+    return total;
+}
+
+void reporteArtistaMasCalificado(void)
+{
+    Artista a;
+    Artista mejor;
+    int cantidad;
+    int maximo = 0;
+    FILE *archivo = fopen(ARCHIVO_ARTISTAS, "rb");
+
+    if (archivo == NULL) {
+        printf("\nNo hay artistas registrados.\n");
+        return;
+    }
+    while (fread(&a, sizeof(Artista), 1, archivo) == 1) {
+        cantidad = contarCalificacionesDeArtista(a.idArtista);
+        if (cantidad > maximo) {
+            maximo = cantidad;
+            mejor = a;
+        }
+    }
+    fclose(archivo);
+
+    if (maximo == 0) {
+        printf("\nTodavia no hay calificaciones.\n");
+        return;
+    }
+    printf("\n--- Artista mas calificado ---\n");
+    printf("%s (%s) - %d calificaciones\n", mejor.nombre, mejor.generoPrincipal, maximo);
+}
+
+static int contarCalificacionesDeUsuario(const char *idUsuario)
+{
+    Calificacion cal;
+    int cantidad = 0;
+    FILE *archivo = fopen(ARCHIVO_CALIFICACIONES, "rb");
+
+    if (archivo == NULL) {
+        return 0;
+    }
+    while (fread(&cal, sizeof(Calificacion), 1, archivo) == 1) {
+        if (strcmp(cal.idUsuario, idUsuario) == 0) {
+            cantidad++;
+        }
+    }
+    fclose(archivo);
+
+    return cantidad;
+}
+
+void reporteUsuarioMasActivo(void)
+{
+    Usuario u;
+    Usuario mejor;
+    int cantidad;
+    int maximo = 0;
+    FILE *archivo = fopen(ARCHIVO_USUARIOS, "rb");
+
+    if (archivo == NULL) {
+        printf("\nNo hay usuarios registrados.\n");
+        return;
+    }
+    while (fread(&u, sizeof(Usuario), 1, archivo) == 1) {
+        cantidad = contarCalificacionesDeUsuario(u.idUsuario);
+        if (cantidad > maximo) {
+            maximo = cantidad;
+            mejor = u;
+        }
+    }
+    fclose(archivo);
+
+    if (maximo == 0) {
+        printf("\nTodavia no hay calificaciones.\n");
+        return;
+    }
+    printf("\n--- Usuario mas activo ---\n");
+    printf("%s - %d calificaciones\n", mejor.nickname, maximo);
 }

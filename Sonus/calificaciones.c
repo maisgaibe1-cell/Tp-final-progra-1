@@ -31,7 +31,7 @@ int yaCalifico(const char *idUsuario, const char *idCancion)
         return 0;
     }
     while (fread(&c, sizeof(Calificacion), 1, archivo) == 1) {
-        if (strcmp(c.idUsuario, idUsuario) == 0 && strcmp(c.idCancion, idCancion) == 0) {
+        if (strcmp(c.nicknameUsuario, idUsuario) == 0 && strcmp(c.idCancion, idCancion) == 0) {
             fclose(archivo);
             return 1;
         }
@@ -39,6 +39,80 @@ int yaCalifico(const char *idUsuario, const char *idCancion)
     fclose(archivo);
 
     return 0;
+}
+
+static int sumarPuntuacionesRec(FILE *archivo, const char *idCancion, int *cantidad)
+{
+    Calificacion c;
+    int puntos = 0;
+
+    if (fread(&c, sizeof(Calificacion), 1, archivo) != 1)
+    {
+        return 0;
+    }
+    if (strcmp(c.idCancion, idCancion) == 0)
+    {
+        puntos = c.puntuacion;
+        (*cantidad)++;
+    }
+
+    return puntos + sumarPuntuacionesRec(archivo, idCancion, cantidad);
+}
+
+static float calcularPromedio(const char *idCancion)
+{
+    int suma;
+    int cantidad = 0;
+    FILE *archivo = fopen(ARCHIVO_CALIFICACIONES, "rb");
+
+    if (archivo == NULL) {
+        return 0;
+    }
+    suma = sumarPuntuacionesRec(archivo, idCancion, &cantidad);
+    fclose(archivo);
+
+    if (cantidad == 0) {
+        return 0;
+    }
+
+    return (float)suma / cantidad;
+}
+
+static int actualizarPromedioCancion(const char *idCancion, float promedio)
+{
+    Cancion c;
+    size_t escritos;
+    FILE *archivo = fopen(ARCHIVO_CANCIONES, "r+b");
+
+    if (archivo == NULL) {
+        return 0;
+    }
+    while (fread(&c, sizeof(Cancion), 1, archivo) == 1) {
+        if (strcmp(c.idCancion, idCancion) == 0) {
+            c.calificacionPromedio = promedio;
+            fseek(archivo, -(long)sizeof(Cancion), SEEK_CUR);
+            escritos = fwrite(&c, sizeof(Cancion), 1, archivo);
+            fclose(archivo);
+            return escritos == 1;
+        }
+    }
+    fclose(archivo);
+
+    return 0;
+}
+
+static int leerPuntuacion(void)
+{
+    int puntuacion;
+    int c;
+
+    printf("Puntuacion (%d a %d): ", PUNTUACION_MINIMA, PUNTUACION_MAXIMA);
+    if (scanf("%d", &puntuacion) != 1) {
+        puntuacion = 0;
+    }
+    while ((c = getchar()) != '\n' && c != EOF) { }
+
+    return puntuacion;
 }
 
 void calificarCancion(const char *idUsuario)
@@ -69,7 +143,7 @@ void calificarCancion(const char *idUsuario)
     } while (puntuacion < PUNTUACION_MINIMA || puntuacion > PUNTUACION_MAXIMA);
 
     sprintf(nueva.idRegistroCal, "CAL%03d", generarIdCalificacion());
-    strcpy(nueva.idUsuario, idUsuario);
+    strcpy(nueva.nicknameUsuario, idUsuario);
     strcpy(nueva.idCancion, cancion.idCancion);
     nueva.puntuacion = puntuacion;
 
@@ -123,7 +197,7 @@ void verMisCalificaciones(const char *idUsuario)
     printf("\n--- Mis calificaciones ---\n");
     while (fread(&cal, sizeof(Calificacion), 1, archivo) == 1)
         {
-        if (strcmp(cal.idUsuario, idUsuario) == 0)
+        if (strcmp(cal.nicknameUsuario, idUsuario) == 0)
          {
             hay = 1;
             if (obtenerCancionPorId(cal.idCancion, &cancion))
@@ -139,23 +213,4 @@ void verMisCalificaciones(const char *idUsuario)
     {
         printf("  Todavia no calificaste ninguna cancion.\n");
     }
-}
-
-int yaCalifico(const char *idUsuario, const char *idCancion)
-{
-    Calificacion c;
-    FILE *archivo = fopen(ARCHIVO_CALIFICACIONES, "rb");
-
-    if (archivo == NULL) {
-        return 0;
-    }
-    while (fread(&c, sizeof(Calificacion), 1, archivo) == 1) {
-        if (strcmp(c.idUsuario, idUsuario) == 0 && strcmp(c.idCancion, idCancion) == 0) {
-            fclose(archivo);
-            return 1;
-        }
-    }
-    fclose(archivo);
-
-    return 0;
 }
