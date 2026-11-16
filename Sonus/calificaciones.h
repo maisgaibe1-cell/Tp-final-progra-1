@@ -2,7 +2,6 @@
 #define CALIFICACIONES_H_INCLUDED
 #include "canciones.h"
 
-
 #define ARCHIVO_CALIFICACIONES "calificaciones.bin"
 #define PUNTUACION_MINIMA 1
 #define PUNTUACION_MAXIMA 5

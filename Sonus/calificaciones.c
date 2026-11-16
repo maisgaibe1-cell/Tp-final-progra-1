@@ -21,6 +21,26 @@ static int generarIdCalificacion(void){
     return (int)(bytes / sizeof(Calificacion)) + 1;
 }
 
+
+int yaCalifico(const char *idUsuario, const char *idCancion)
+{
+    Calificacion c;
+    FILE *archivo = fopen(ARCHIVO_CALIFICACIONES, "rb");
+
+    if (archivo == NULL) {
+        return 0;
+    }
+    while (fread(&c, sizeof(Calificacion), 1, archivo) == 1) {
+        if (strcmp(c.idUsuario, idUsuario) == 0 && strcmp(c.idCancion, idCancion) == 0) {
+            fclose(archivo);
+            return 1;
+        }
+    }
+    fclose(archivo);
+
+    return 0;
+}
+
 void calificarCancion(const char *idUsuario)
 {
     char titulo[100];
@@ -34,7 +54,8 @@ void calificarCancion(const char *idUsuario)
     fgets(titulo, sizeof(titulo), stdin);
     titulo[strcspn(titulo, "\n")] = '\0';
 
-    if (!buscarCancionPorTitulo(titulo, &cancion)) {
+    if (!buscarCancionPorTitulo(titulo, &cancion))
+    {
         printf("\nNo se encontro esa cancion.\n");
         return;
     }
@@ -100,10 +121,13 @@ void verMisCalificaciones(const char *idUsuario)
     }
 
     printf("\n--- Mis calificaciones ---\n");
-    while (fread(&cal, sizeof(Calificacion), 1, archivo) == 1) {
-        if (strcmp(cal.idUsuario, idUsuario) == 0) {
+    while (fread(&cal, sizeof(Calificacion), 1, archivo) == 1)
+        {
+        if (strcmp(cal.idUsuario, idUsuario) == 0)
+         {
             hay = 1;
-            if (obtenerCancionPorId(cal.idCancion, &cancion)) {
+            if (obtenerCancionPorId(cal.idCancion, &cancion))
+            {
                 printf("  - %s: %d estrellas (promedio general: %.1f)\n",
                        cancion.titulo, cal.puntuacion, cancion.calificacionPromedio);
             }
@@ -111,7 +135,8 @@ void verMisCalificaciones(const char *idUsuario)
     }
     fclose(archivo);
 
-    if (!hay) {
+    if (!hay)
+    {
         printf("  Todavia no calificaste ninguna cancion.\n");
     }
 }
