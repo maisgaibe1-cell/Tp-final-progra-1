@@ -10,7 +10,7 @@ typedef struct stUsuario {
 } Usuario;
 
 int registrarUsuario(void);
-int existeUsuario(char id[]);
+int existeUsuario(char id[], Usuario *usuarioBuscado);
 
 
 

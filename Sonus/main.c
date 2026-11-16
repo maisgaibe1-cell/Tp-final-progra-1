@@ -21,9 +21,18 @@ printf("\n--------------\n");
     int rol = login(idLogueado);
 
     if (rol == ROL_USUARIO) {
+
         printf("\nEntraste como USUARIO. ID: %s\n", idLogueado);
+
+        Usuario usuarioLogueado;
+        existeUsuario(idLogueado,&usuarioLogueado);
+
+        menuUsuario(usuarioLogueado);
+
     } else if (rol == ROL_ARTISTA) {
+
         printf("\nEntraste como ARTISTA. ID: %s\n", idLogueado);
+
         Artista artistaLogueado;
         existeArtista(idLogueado,&artistaLogueado);
 

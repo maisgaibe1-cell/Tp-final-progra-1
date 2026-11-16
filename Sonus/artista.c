@@ -4,7 +4,7 @@
 #include <string.h>
 #include "album.h"
 #include "canciones.h"
-
+#include "reportes.h"
 
 int existeArtista(char id[], Artista* artistaBuscado)
 {
@@ -54,7 +54,7 @@ int registrarArtistas()
    printf("\nGenero Princial: ");
    scanf("%29s", a.generoPrincipal);
 
-   buffer=fopen("artista.dat", "ab");
+   buffer=fopen("artistas.dat", "ab");
 
   if(buffer == NULL)
     return 0;
@@ -80,9 +80,14 @@ void menuArtista(Artista artistaLogueado)
         printf("3. Agregar cancion\n");
         printf("4. Modificar cancion\n");
         printf("5. Mostrar mis canciones\n");
+        printf("6. Mostrar Top 10 mejores canciones\n");
+        printf("7. Mostrar albumes lanzados recientemente\n");
+        printf("8. Mostrar artista que recibio mas calificaciones\n");
+        printf("9. Mostrar el usuario que dejo mas calificaciones\n");
         printf("0. Salir\n");
         scanf("%d", &opcion);
         getchar();
+
         switch(opcion)
         {
         case 1:
@@ -92,21 +97,37 @@ void menuArtista(Artista artistaLogueado)
             modificarAlbum("albumes.dat",artistaLogueado);
             break;
         case 3:
-        {
             Cancion nueva = cargarCancion(artistaLogueado);
             if(guardarCancion("canciones.dat", nueva) == 1)
             {
                 printf("Cancion guardada\n");
             }
             break;
-        }
         case 4:
             modificarCancion("canciones.dat", artistaLogueado);
             break;
         case 5:
             mostrarArchivoCanciones("canciones.dat");
             break;
+         case 6:
+            reporteTop10Canciones();
+            break;
+        case 7:
+            reporteAlbumesRecientes();
+            break;
+       /*
+        case 8:
+
+            break;
+        case 9:
+
+            break;
+        */
+        default:
+
+            break;
         }
+
     }
     while(opcion != 0);
 }
