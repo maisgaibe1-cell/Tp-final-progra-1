@@ -32,6 +32,7 @@ void menuPrincipal(void)
             rol = login(idLogueado);
             if (rol == ROL_USUARIO && existeUsuario(idLogueado, &usuario))
                 {
+                    printf("rol usuario\n");
                 menuUsuario(usuario);
             } else if (rol == ROL_ARTISTA && existeArtista(idLogueado, &artista)) {
                 menuArtista(artista);

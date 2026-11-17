@@ -7,6 +7,6 @@ typedef struct stFecha {
     int anio;
 } Fecha;
 
-
+int anioActual(void);
 #endif // FECHAS_H_INCLUDED
 

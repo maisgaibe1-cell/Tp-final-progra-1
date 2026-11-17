@@ -8,7 +8,6 @@
 #include "archivos.h"
 #include "fechas.h"
 
-
 void ordenarPorPromedioDesc(Cancion *canciones, int n)
 {
     for (int i = 0; i < n - 1; i++)
@@ -74,7 +73,7 @@ void reporteAlbumesRecientes(void)
     Album *albumes = cargarArchivo("albumes.dat", sizeof(Album), &cant);
 
     if (albumes == NULL)
-        printf("No hay álbumes cargados.\n");
+        printf("No hay ï¿½lbumes cargados.\n");
     else
     {
         int anioLimite = anioActual() - 1;
@@ -91,7 +90,7 @@ void reporteAlbumesRecientes(void)
         }
 
         if (cantRecientes == 0)
-            printf("No hay álbumes lanzados en el último año.\n");
+            printf("No hay ï¿½lbumes lanzados en el ï¿½ltimo aï¿½o.\n");
         else
         {
             ordenarAlbumesPorAnio(albumes, cantRecientes);
@@ -171,7 +170,7 @@ void reporteArtistaMasCalificado(void)
     printf("%s (%s) - %d calificaciones\n", mejor.nombre, mejor.generoPrincipal, maximo);
 }
 
-static int contarCalificacionesDeUsuario(const char *idUsuario)
+static int contarCalificacionesDeUsuario(const char *nicknameUsuario)
 {
     Calificacion cal;
     int cantidad = 0;

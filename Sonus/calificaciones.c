@@ -22,7 +22,7 @@ static int generarIdCalificacion(void){
 }
 
 
-int yaCalifico(const char *idUsuario, const char *idCancion)
+int yaCalifico(const char *nicknameUsuario, const char *idCancion)
 {
     Calificacion c;
     FILE *archivo = fopen(ARCHIVO_CALIFICACIONES, "rb");
@@ -31,7 +31,7 @@ int yaCalifico(const char *idUsuario, const char *idCancion)
         return 0;
     }
     while (fread(&c, sizeof(Calificacion), 1, archivo) == 1) {
-        if (strcmp(c.nicknameUsuario, idUsuario) == 0 && strcmp(c.idCancion, idCancion) == 0) {
+        if (strcmp(c.nicknameUsuario, nicknameUsuario) == 0 && strcmp(c.idCancion, idCancion) == 0) {
             fclose(archivo);
             return 1;
         }
@@ -115,7 +115,7 @@ static int leerPuntuacion(void)
     return puntuacion;
 }
 
-void calificarCancion(const char *idUsuario)
+void calificarCancion(const char *nicknameUsuario)
 {
     char titulo[100];
     Cancion cancion;
@@ -133,7 +133,7 @@ void calificarCancion(const char *idUsuario)
         printf("\nNo se encontro esa cancion.\n");
         return;
     }
-    if (yaCalifico(idUsuario, cancion.idCancion)) {
+    if (yaCalifico(nicknameUsuario, cancion.idCancion)) {
         printf("\nYa calificaste esta cancion.\n");
         return;
     }
@@ -143,7 +143,7 @@ void calificarCancion(const char *idUsuario)
     } while (puntuacion < PUNTUACION_MINIMA || puntuacion > PUNTUACION_MAXIMA);
 
     sprintf(nueva.idRegistroCal, "CAL%03d", generarIdCalificacion());
-    strcpy(nueva.nicknameUsuario, idUsuario);
+    strcpy(nueva.nicknameUsuario, nicknameUsuario);
     strcpy(nueva.idCancion, cancion.idCancion);
     nueva.puntuacion = puntuacion;
 

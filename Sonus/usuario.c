@@ -6,7 +6,7 @@
 
 int existeUsuario(char id[], Usuario *usuarioBuscado)
 {
-    FILE *buffer = fopen(ARCHIVO_USUARIO, "rb") ;
+    FILE *buffer = fopen("usuarios.dat", "rb") ;
 
     if(buffer == NULL)
     return 0;
