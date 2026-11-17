@@ -6,8 +6,9 @@
 #include "archivos.h"
 #include "album.h"
 #include "archivos.h"
-
-
+#include "fechas.h"
+#include "calificaciones.h"
+#include "usuario.h"
 
 void ordenarPorPromedioDesc(Cancion *canciones, int n)
 {
@@ -171,7 +172,7 @@ void reporteArtistaMasCalificado(void)
     printf("%s (%s) - %d calificaciones\n", mejor.nombre, mejor.generoPrincipal, maximo);
 }
 
-static int contarCalificacionesDeUsuario(const char *idUsuario)
+static int contarCalificacionesDeUsuario(const char *nicknameUsuario)
 {
     Calificacion cal;
     int cantidad = 0;
@@ -181,7 +182,7 @@ static int contarCalificacionesDeUsuario(const char *idUsuario)
         return 0;
     }
     while (fread(&cal, sizeof(Calificacion), 1, archivo) == 1) {
-        if (strcmp(cal.idUsuario, idUsuario) == 0) {
+        if (strcmp(cal.nicknameUsuario, nicknameUsuario) == 0) {
             cantidad++;
         }
     }
@@ -203,7 +204,7 @@ void reporteUsuarioMasActivo(void)
         return;
     }
     while (fread(&u, sizeof(Usuario), 1, archivo) == 1) {
-        cantidad = contarCalificacionesDeUsuario(u.idUsuario);
+        cantidad = contarCalificacionesDeUsuario(u.nickname);
         if (cantidad > maximo) {
             maximo = cantidad;
             mejor = u;

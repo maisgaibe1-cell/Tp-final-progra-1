@@ -59,6 +59,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="catalogo.h" />
+		<Unit filename="datosPrueba.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="datosPrueba.h" />
 		<Unit filename="fechas.c">
 			<Option compilerVar="CC" />
 		</Unit>
