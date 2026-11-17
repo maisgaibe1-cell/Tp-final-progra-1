@@ -119,6 +119,7 @@ static int guardarRegistros(const char *ruta, const void *registros, size_t tam,
 int cargarDatosDePrueba(void)
 {
     if (existeArchivo("artistas.dat"))
+
         return 0;
 
     Artista artistas[CANT_ARTISTAS] = {

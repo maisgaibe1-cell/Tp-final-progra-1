@@ -28,7 +28,7 @@ void listarCancionesDelAlbum(const char *idAlbum)
         {
             if(strcmp(c.idAlbum, idAlbum)== 0)
             {
-              printf("      - %s (%d:%02d) - Calificacion: %.1f\n", c.titulo,c.duracionSegundos / 60, c.duracionSegundos % 60, c.calificacionPromedio);
+              printf("  - %s (%d:%02d) - Calificacion: %.1f\n", c.titulo,c.duracionSegundos / 60, c.duracionSegundos % 60, c.calificacionPromedio);
               hay = 1;
             }
         }
@@ -183,9 +183,11 @@ void verInfoCancion(void)
         printf("Album: %s (%d)\n", album.titulo, album.anioLanzamiento);
     }
     printf("Duracion: %d:%02d\n", cancion.duracionSegundos / 60, cancion.duracionSegundos % 60);
-    if (cancion.calificacionPromedio == 0) {
+    if (cancion.calificacionPromedio == 0)
+    {
         printf("Calificacion promedio: todavia sin calificaciones\n");
-    } else {
-        printf("Calificacion promedio: %.1f / 5\n", cancion.calificacionPromedio);
+    } else
+    {
+        printf("Calificacion promedio: %.2f / 5\n", cancion.calificacionPromedio);
     }
 }

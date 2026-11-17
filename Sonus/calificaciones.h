@@ -20,9 +20,8 @@ static int sumarPuntuacionesRec(FILE *archivo, const char *idCancion, int *canti
 static float calcularPromedio(const char *idCancion);
 static int actualizarPromedioCancion(const char *idCancion, float promedio);
 static int leerPuntuacion(void);
-void calificarCancion(const char *idUsuario);
 static int obtenerCancionPorId(const char *id, Cancion *encontrada);
-void verMisCalificaciones(const char *idUsuario);
-
+void calificarCancion(const char *nicknameUsuario);
+void verMisCalificaciones(const char *nicknameUsuario);
 #endif // CALIFICACIONES_H_INCLUDED
 

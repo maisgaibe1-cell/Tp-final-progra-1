@@ -29,6 +29,8 @@ Cancion cargarCancion(Artista artistaLogueado){
 
         sprintf(cancion.idCancion,"CAN%03d",nuevoNumero);
 
+        printf("ID Cancion: %s\n", cancion.idCancion);
+
         strcpy(cancion.idArtista,albumEncontrado.artista.idArtista);
 
         printf("Titulo\n");

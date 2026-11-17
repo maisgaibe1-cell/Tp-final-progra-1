@@ -7,6 +7,9 @@
 #include "album.h"
 #include "archivos.h"
 #include "fechas.h"
+#include "calificaciones.h"
+#include "usuario.h"
+
 
 void ordenarPorPromedioDesc(Cancion *canciones, int n)
 {
@@ -73,7 +76,7 @@ void reporteAlbumesRecientes(void)
     Album *albumes = cargarArchivo("albumes.dat", sizeof(Album), &cant);
 
     if (albumes == NULL)
-        printf("No hay �lbumes cargados.\n");
+        printf("No hay albumes cargados.\n");
     else
     {
         int anioLimite = anioActual() - 1;
@@ -179,11 +182,14 @@ static int contarCalificacionesDeUsuario(const char *nicknameUsuario)
     if (archivo == NULL) {
         return 0;
     }
-    while (fread(&cal, sizeof(Calificacion), 1, archivo) == 1) {
-        if (strcmp(cal.nicknameUsuario, idUsuario) == 0) {
-            cantidad++;
-        }
+
+    while (fread(&cal, sizeof(Calificacion), 1, archivo) == 1)
+{
+    if (strcmp(cal.nicknameUsuario, nicknameUsuario) == 0)
+    {
+        cantidad++;
     }
+}
     fclose(archivo);
 
     return cantidad;
@@ -201,7 +207,8 @@ void reporteUsuarioMasActivo(void)
         printf("\nNo hay usuarios registrados.\n");
         return;
     }
-    while (fread(&u, sizeof(Usuario), 1, archivo) == 1) {
+    while (fread(&u, sizeof(Usuario), 1, archivo) == 1)
+        {
         cantidad = contarCalificacionesDeUsuario(u.nickname);
         if (cantidad > maximo) {
             maximo = cantidad;

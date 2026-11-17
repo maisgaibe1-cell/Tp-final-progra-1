@@ -84,10 +84,10 @@ void menuUsuario(Usuario usuarioLogueado){
             verInfoCancion();
             break;
             case 4:
-            calificarCancion(usuarioLogueado.idUsuario);
+             calificarCancion(usuarioLogueado.nickname);
             break;
             case 5:
-            verMisCalificaciones(usuarioLogueado.idUsuario);
+            verMisCalificaciones(usuarioLogueado.nickname);
             break;
             case 6:
             reporteTop10Canciones();
@@ -131,7 +131,12 @@ void menuArtista(Artista artistaLogueado)
         switch(opcion)
         {
         case 1:
-            cargarAlbum(artistaLogueado);
+        Album nuevo =cargarAlbum(artistaLogueado);
+
+        guardarAlbum(ARCHIVO_ALBUMES, nuevo);
+
+        printf("Album creado correctamente.\n");
+        printf("ID del album: %s\n", nuevo.idAlbum);
 
             break;
         case 2:

@@ -18,6 +18,8 @@ Album cargarAlbum(Artista artistaLogueado)
     fgets(album.titulo,sizeof(album.titulo),stdin);
     album.titulo[strcspn(album.titulo,"\n")]='\0';
 
+    printf("ID ALbum: %s\n",album.idAlbum);
+
     printf("Anio lanzamiento\n");
     scanf("%d",&album.anioLanzamiento);
     getchar();
@@ -115,6 +117,7 @@ int modificarAlbum(const char nombreArchivo[],Artista artistaLogueado)
         printf("Cantidad de canciones\n");
         scanf("%d",&nuevoAlbum.cantidadCanciones);
         getchar();
+
 
         archivo=fopen(nombreArchivo,"r+b");
 

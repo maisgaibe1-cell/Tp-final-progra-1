@@ -143,9 +143,12 @@ void calificarCancion(const char *nicknameUsuario)
     } while (puntuacion < PUNTUACION_MINIMA || puntuacion > PUNTUACION_MAXIMA);
 
     sprintf(nueva.idRegistroCal, "CAL%03d", generarIdCalificacion());
+
     strcpy(nueva.nicknameUsuario, nicknameUsuario);
+
     strcpy(nueva.idCancion, cancion.idCancion);
-    nueva.puntuacion = puntuacion;
+
+   nueva.puntuacion = puntuacion;
 
     archivo = fopen(ARCHIVO_CALIFICACIONES, "ab");
     if (archivo == NULL) {
@@ -182,11 +185,13 @@ static int obtenerCancionPorId(const char *id, Cancion *encontrada)
     return 0;
 }
 
-void verMisCalificaciones(const char *idUsuario)
+
+void verMisCalificaciones(const char *nicknameUsuario)
 {
     Calificacion cal;
     Cancion cancion;
     int hay = 0;
+
     FILE *archivo = fopen(ARCHIVO_CALIFICACIONES, "rb");
 
     if (archivo == NULL) {
@@ -195,22 +200,26 @@ void verMisCalificaciones(const char *idUsuario)
     }
 
     printf("\n--- Mis calificaciones ---\n");
+
     while (fread(&cal, sizeof(Calificacion), 1, archivo) == 1)
+    {
+        if (strcmp(cal.nicknameUsuario, nicknameUsuario) == 0)
         {
-        if (strcmp(cal.nicknameUsuario, idUsuario) == 0)
-         {
             hay = 1;
+
             if (obtenerCancionPorId(cal.idCancion, &cancion))
             {
                 printf("  - %s: %d estrellas (promedio general: %.1f)\n",
-                       cancion.titulo, cal.puntuacion, cancion.calificacionPromedio);
+                       cancion.titulo,
+                       cal.puntuacion,
+                       cancion.calificacionPromedio);
             }
         }
     }
+
     fclose(archivo);
 
-    if (!hay)
-    {
+    if (!hay) {
         printf("  Todavia no calificaste ninguna cancion.\n");
     }
 }

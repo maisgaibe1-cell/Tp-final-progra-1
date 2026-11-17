@@ -37,6 +37,7 @@ int registrarArtistas(char idNuevo[])
 
    printf("\nIngresa ID:");
    scanf("%9s", a.idArtista);
+   getchar();
 
    Artista existe;
    if(existeArtista(a.idArtista,&existe)==1)
