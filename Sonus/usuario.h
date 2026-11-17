@@ -1,6 +1,6 @@
 #ifndef USUARIO_H_INCLUDED
 #define USUARIO_H_INCLUDED
-#define ARCHIVO_CANCIONES "canciones.bin"
+#define ARCHIVO_USUARIO "usuario.bin"
 
 typedef struct stUsuario {
     char idUsuario[10];

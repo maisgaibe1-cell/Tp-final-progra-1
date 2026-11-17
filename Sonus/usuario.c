@@ -6,7 +6,7 @@
 
 int existeUsuario(char id[], Usuario *usuarioBuscado)
 {
-    FILE *buffer = fopen("usuarios.bin", "rb") ;
+    FILE *buffer = fopen(ARCHIVO_USUARIO, "rb") ;
 
     if(buffer == NULL)
     return 0;
@@ -40,6 +40,7 @@ int registrarUsuario(char idNuevo[])
    if(existeUsuario(a.idUsuario, &aux)==1)
    {
       printf("\nYa existe este usuario.");
+      return 0;
    }
    else
    {
@@ -51,7 +52,7 @@ int registrarUsuario(char idNuevo[])
    getchar();
    printf("\nNickname: ");
    fgets(a.nickname, sizeof(a.nickname), stdin);
-
+   a.nickname[strcspn(a.nickname, "\n")] = '\0';
 
    buffer=fopen("usuarios.dat", "ab");
     if(buffer == NULL)

@@ -131,6 +131,7 @@ void menuArtista(Artista artistaLogueado)
         {
         case 1:
             cargarAlbum(artistaLogueado);
+
             break;
         case 2:
             modificarAlbum("albumes.dat",artistaLogueado);

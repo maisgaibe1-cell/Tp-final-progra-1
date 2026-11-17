@@ -46,6 +46,9 @@ void listarAlbumesArtista(const char *idArtista)
     int hay = 0;
     FILE *archivo= fopen(ARCHIVO_ALBUMES,"rb");
 
+    if(archivo == NULL)
+        return;
+
       while (fread(&a, sizeof(Album), 1, archivo) == 1)
         {
             if (strcmp(a.artista.idArtista, idArtista) == 0)
