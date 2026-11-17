@@ -3,7 +3,7 @@
 
 int main(void)
 {
-    cargarDatosDePrueba();
+    //cargarDatosDePrueba();
     menuPrincipal();
 
     return 0;
